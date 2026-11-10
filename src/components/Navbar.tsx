@@ -25,11 +25,11 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks: { label: string; id: 'home' | 'products' | 'about' | 'where-to-buy' }[] = [
-    { label: 'Home', id: 'home' },
-    { label: 'Our Products', id: 'products' },
-    { label: 'About Us', id: 'about' },
-    { label: 'Where to Buy', id: 'where-to-buy' },
+  const navLinks: { label: string; id: 'home' | 'products' | 'about' | 'where-to-buy'; rollNumber: string }[] = [
+    { label: 'Home', id: 'home', rollNumber: '25BA131' },
+    { label: 'Our Products', id: 'products', rollNumber: '25BA136' },
+    { label: 'About Us', id: 'about', rollNumber: '25BA108' },
+    { label: 'Where to Buy', id: 'where-to-buy', rollNumber: '25BA104' },
   ];
 
   const handleLinkClick = (pageId: 'home' | 'products' | 'about' | 'where-to-buy') => {
@@ -59,8 +59,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#FFFDF9]/95 backdrop-blur-md shadow-md border-b border-[#E8DEC8] py-2.5'
-            : 'bg-[#FFFDF9] border-b border-[#EFE5D3] py-3.5'
+            ? 'bg-[#FFFDF9]/95 backdrop-blur-md shadow-md border-b border-[#E8DEC8] py-2'
+            : 'bg-[#FFFDF9] border-b border-[#EFE5D3] py-2.5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,23 +79,30 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             </div>
 
-            {/* Zone 2: Navigation Links (single-line, clean typography) */}
-            <nav className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-700">
+            {/* Zone 2: Navigation Links with Roll Numbers beneath each tab label */}
+            <nav className="hidden md:flex items-center gap-8 text-slate-700">
               {navLinks.map((link) => {
                 const isActive = currentPage === link.id;
                 return (
                   <button
                     key={link.id}
                     onClick={() => handleLinkClick(link.id)}
-                    className={`relative py-1 transition-colors whitespace-nowrap shrink-0 ${
+                    className={`relative flex flex-col items-center py-1 transition-colors whitespace-nowrap shrink-0 group cursor-pointer ${
                       isActive
                         ? 'text-[#8B1E29]'
-                        : 'hover:text-[#8B1E29] text-slate-600'
+                        : 'hover:text-[#8B1E29] text-slate-700'
                     }`}
                   >
-                    {link.label}
+                    <span className="text-sm font-bold leading-tight">{link.label}</span>
+                    <span
+                      className={`text-[10px] font-mono tracking-wider font-semibold leading-tight mt-0.5 transition-colors ${
+                        isActive ? 'text-[#8B1E29] font-bold' : 'text-slate-500 group-hover:text-[#8B1E29]'
+                      }`}
+                    >
+                      {link.rollNumber}
+                    </span>
                     {isActive && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#8B1E29] rounded-full" />
+                      <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#8B1E29] rounded-full" />
                     )}
                   </button>
                 );
@@ -141,20 +148,27 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           </div>
 
-          {/* Mobile Menu Dropdown */}
+          {/* Mobile Menu Dropdown with Roll Numbers */}
           {mobileMenuOpen && (
             <div className="md:hidden pt-4 pb-3 border-t border-slate-200 mt-3 space-y-2 animate-in fade-in slide-in-from-top-2">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => handleLinkClick(link.id)}
-                  className={`block w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold ${
+                  className={`flex items-center justify-between w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-bold ${
                     currentPage === link.id
                       ? 'bg-[#8B1E29] text-white'
                       : 'text-slate-800 hover:bg-amber-50'
                   }`}
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  <span
+                    className={`text-xs font-mono font-semibold ${
+                      currentPage === link.id ? 'text-amber-200' : 'text-slate-500'
+                    }`}
+                  >
+                    {link.rollNumber}
+                  </span>
                 </button>
               ))}
               <div className="pt-2">

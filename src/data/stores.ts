@@ -14,7 +14,7 @@ export const SAMPLE_STORES: StoreLocation[] = [
     phone: '+91 11 2766 7905',
     hours: '8:00 AM – 9:00 PM',
     stockStatus: 'Full Range In Stock',
-    flavorsAvailable: ['Classic Salted', 'Kerala Pepper', 'Bengal Kasundi', 'Gujarat Khatta Meetha', 'Tangy Tomato', 'Olive Oil']
+    flavorsAvailable: ['Classic Salted', 'Kerala Pepper & Curry Leaf', 'Bengal Kasundi Mustard', 'Gujarat Khatta Meetha', 'Tangy Tomato Masala', 'Olive Oil & Sea Salt']
   },
   {
     id: 'delhi-cp-lemarche',
@@ -29,7 +29,7 @@ export const SAMPLE_STORES: StoreLocation[] = [
     phone: '+91 11 4151 3290',
     hours: '9:00 AM – 10:00 PM',
     stockStatus: 'Full Range In Stock',
-    flavorsAvailable: ['Classic Salted', 'Kerala Pepper', 'Bengal Kasundi', 'Olive Oil']
+    flavorsAvailable: ['Classic Salted', 'Kerala Pepper & Curry Leaf', 'Bengal Kasundi Mustard', 'Olive Oil & Sea Salt']
   },
   {
     id: 'delhi-gurgaon-cybercity',
@@ -44,7 +44,7 @@ export const SAMPLE_STORES: StoreLocation[] = [
     phone: '+91 124 492 8800',
     hours: '8:30 AM – 11:00 PM',
     stockStatus: 'Full Range In Stock',
-    flavorsAvailable: ['All 6 Flavours Available']
+    flavorsAvailable: ['Classic Salted', 'Bengal Kasundi Mustard', 'Tangy Tomato Masala', 'Olive Oil & Sea Salt']
   },
   {
     id: 'delhi-south-gk',
@@ -74,7 +74,7 @@ export const SAMPLE_STORES: StoreLocation[] = [
     phone: '+91 22 2605 5511',
     hours: '10:00 AM – 10:30 PM',
     stockStatus: 'Full Range In Stock',
-    flavorsAvailable: ['All 6 Flavours Available']
+    flavorsAvailable: ['Classic Salted', 'Kerala Pepper & Curry Leaf', 'Bengal Kasundi Mustard', 'Gujarat Khatta Meetha', 'Tangy Tomato Masala', 'Olive Oil & Sea Salt']
   },
   {
     id: 'mumbai-powai-campus',
@@ -89,7 +89,7 @@ export const SAMPLE_STORES: StoreLocation[] = [
     phone: '+91 22 2570 9944',
     hours: '8:00 AM – 10:00 PM',
     stockStatus: 'Classic & Regional Only',
-    flavorsAvailable: ['Classic Salted', 'Gujarat Khatta Meetha', 'Kerala Pepper']
+    flavorsAvailable: ['Classic Salted', 'Gujarat Khatta Meetha', 'Kerala Pepper & Curry Leaf']
   },
   {
     id: 'bangalore-indiranagar',
@@ -104,7 +104,7 @@ export const SAMPLE_STORES: StoreLocation[] = [
     phone: '+91 80 4125 7800',
     hours: '8:00 AM – 10:00 PM',
     stockStatus: 'Full Range In Stock',
-    flavorsAvailable: ['All 6 Flavours Available']
+    flavorsAvailable: ['Classic Salted', 'Kerala Pepper & Curry Leaf', 'Bengal Kasundi Mustard', 'Olive Oil & Sea Salt']
   },
   {
     id: 'bangalore-koramangala',
@@ -119,7 +119,7 @@ export const SAMPLE_STORES: StoreLocation[] = [
     phone: '+91 80 2553 1122',
     hours: '7:30 AM – 10:30 PM',
     stockStatus: 'Full Range In Stock',
-    flavorsAvailable: ['Kerala Pepper', 'Tangy Tomato', 'Classic Salted']
+    flavorsAvailable: ['Kerala Pepper & Curry Leaf', 'Tangy Tomato Masala', 'Classic Salted']
   },
   {
     id: 'kolkata-park-street',
@@ -134,7 +134,7 @@ export const SAMPLE_STORES: StoreLocation[] = [
     phone: '+91 33 2229 8811',
     hours: '9:00 AM – 9:30 PM',
     stockStatus: 'Full Range In Stock',
-    flavorsAvailable: ['Bengal Kasundi Mustard (Top Seller)', 'All Flavours']
+    flavorsAvailable: ['Bengal Kasundi Mustard', 'Classic Salted', 'Kerala Pepper & Curry Leaf', 'Gujarat Khatta Meetha']
   },
   {
     id: 'ahmedabad-vastrapur',
@@ -149,7 +149,7 @@ export const SAMPLE_STORES: StoreLocation[] = [
     phone: '+91 79 2630 4500',
     hours: '8:30 AM – 10:00 PM',
     stockStatus: 'Full Range In Stock',
-    flavorsAvailable: ['Gujarat Khatta Meetha', 'Classic Salted', 'Kerala Pepper']
+    flavorsAvailable: ['Gujarat Khatta Meetha', 'Classic Salted', 'Kerala Pepper & Curry Leaf']
   },
   {
     id: 'kochi-panampilly',
@@ -164,7 +164,58 @@ export const SAMPLE_STORES: StoreLocation[] = [
     phone: '+91 484 231 6620',
     hours: '8:00 AM – 10:00 PM',
     stockStatus: 'Full Range In Stock',
-    flavorsAvailable: ['Kerala Pepper & Curry Leaf', 'All 6 Flavours']
+    flavorsAvailable: ['Kerala Pepper & Curry Leaf', 'Classic Salted', 'Tangy Tomato Masala']
+  }
+];
+
+export const CAMPUS_HUBS = [
+  {
+    campus: 'Shri Ram College of Commerce (SRCC)',
+    city: 'North Campus, Delhi',
+    spot: 'Tuck Shop & Co-op Canteen',
+    topFlavour: 'Masala & Kasundi Mustard',
+    stockTag: 'Restocked Daily',
+    color: '#8B1E29'
+  },
+  {
+    campus: 'St. Stephen’s & Hindu College',
+    city: 'University Enclave, Delhi',
+    spot: 'Main Cafe & Student Activity Centre',
+    topFlavour: 'Classic Salted & Kerala Pepper',
+    stockTag: 'Popular Late Night',
+    color: '#B45309'
+  },
+  {
+    campus: 'IIT Bombay Tech Hub',
+    city: 'Powai, Mumbai',
+    spot: 'Hostel 12 Tuck & Gymkhana Kiosk',
+    topFlavour: 'Gujarat Khatta Meetha & Protein+',
+    stockTag: 'In High Demand',
+    color: '#1E3A8A'
+  },
+  {
+    campus: 'Christ University',
+    city: 'Hosur Road, Bengaluru',
+    spot: 'Block 2 Gourmet Snack Bar',
+    topFlavour: 'Kerala Pepper & Curry Leaf',
+    stockTag: 'Campus Bestseller',
+    color: '#1A4329'
+  },
+  {
+    campus: 'St. Xavier’s College',
+    city: 'Fort, South Mumbai',
+    spot: 'The Foyer Tuck Shop',
+    topFlavour: 'Olive Oil & Sea Salt',
+    stockTag: 'Restocked Daily',
+    color: '#4D6B2B'
+  },
+  {
+    campus: 'IIM Ahmedabad',
+    city: 'Vastrapur, Ahmedabad',
+    spot: 'K dorm Tuck & Nescafe Point',
+    topFlavour: 'Gujarat Khatta Meetha & Kasundi',
+    stockTag: 'All Flavours Active',
+    color: '#C2410C'
   }
 ];
 
@@ -174,7 +225,7 @@ export const ONLINE_PARTNERS = [
     tagline: 'Delivered in 10 minutes',
     badge: 'Quickest Delivery',
     color: '#F4C430',
-    textColor: '#1E1B18',
+    accentColor: '#1E1B18',
     deliveryTime: '8–12 mins',
     popularIn: 'Delhi NCR, Mumbai, Bengaluru, Kolkata',
     link: 'https://blinkit.com'
@@ -184,7 +235,7 @@ export const ONLINE_PARTNERS = [
     tagline: '10-min grocery delivery',
     badge: 'Campus Favourite',
     color: '#8224E3',
-    textColor: '#FFFFFF',
+    accentColor: '#FFFFFF',
     deliveryTime: '10 mins',
     popularIn: 'All Major Metros',
     link: 'https://zeptonow.com'
@@ -194,7 +245,7 @@ export const ONLINE_PARTNERS = [
     tagline: 'Snacks & cravings on demand',
     badge: 'Night Delivery',
     color: '#FC8019',
-    textColor: '#FFFFFF',
+    accentColor: '#FFFFFF',
     deliveryTime: '15 mins',
     popularIn: 'Pan-India',
     link: 'https://swiggy.com'
@@ -204,7 +255,7 @@ export const ONLINE_PARTNERS = [
     tagline: 'Multi-pack boxes & party bundles',
     badge: 'Bulk Savings',
     color: '#232F3E',
-    textColor: '#FFFFFF',
+    accentColor: '#FFFFFF',
     deliveryTime: 'Same Day / Next Day',
     popularIn: 'Nationwide Delivery',
     link: 'https://amazon.in'
