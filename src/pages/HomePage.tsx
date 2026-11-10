@@ -4,7 +4,7 @@ import { PRODUCTS, BRAND_HIGHLIGHTS, BRAND_STATS } from '../data/products';
 import { ChipasBagIllustration } from '../components/ChipasBagIllustration';
 import { ProductCard } from '../components/ProductCard';
 import { GrabberDemo } from '../components/GrabberDemo';
-import { ArrowRight, ShoppingBag, CheckCircle2, Flame, Sparkles } from 'lucide-react';
+import { ArrowRight, ShoppingBag, CheckCircle2, Flame, Sparkles, Play, Film, Award, Maximize2, X, ChevronLeft, ChevronRight, FileText, ExternalLink, Eye } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface HomePageProps {
@@ -12,6 +12,62 @@ interface HomePageProps {
   onQuickAdd: (product: Product) => void;
   onNavigate: (page: 'home' | 'products' | 'about' | 'where-to-buy') => void;
 }
+
+interface CampaignPamphlet {
+  id: string;
+  badge: string;
+  title: string;
+  headline: string;
+  subtitle: string;
+  image: string;
+  madeBy: string;
+  keyPoints: string[];
+}
+
+const OFFICIAL_PAMPHLETS: CampaignPamphlet[] = [
+  {
+    id: 'pamphlet-1',
+    badge: 'Pamphlet 01',
+    title: 'Old chip habits. New reasons.',
+    headline: 'Pull. Unfold. Pinch.',
+    subtitle: 'Everyday crunch with a better way to grab. Grams up front & clean fingers innovation.',
+    image: '/assets/aistudio/pamphlet_01_with_roll_no_6c1cf0fe.png',
+    madeBy: '25BA131',
+    keyPoints: [
+      'Giving the chip a second look: honest label & protein upfront',
+      'The corner tear: pull, unfold, pinch mechanism',
+      'Handy study snack guide & zero messy fingers'
+    ]
+  },
+  {
+    id: 'pamphlet-2',
+    badge: 'Pamphlet 02',
+    title: 'The Crunch Club · Three things we refuse to skip.',
+    headline: 'Greasy fingers? Not today.',
+    subtitle: 'Taste that shows off, regional flavour menu with Spice-O-Meter, and zero greasy screens.',
+    image: '/assets/aistudio/pamphlet_2_with_roll_no_25a96612.png',
+    madeBy: '25BA131',
+    keyPoints: [
+      'Three non-negotiables: taste, protein, and readable ingredients',
+      'Spice-O-Meter rating for every single recipe',
+      'Keeps phone screen, keyboard, and study notes pristine'
+    ]
+  },
+  {
+    id: 'pamphlet-3',
+    badge: 'Pamphlet 03',
+    title: 'Crunch Field Guide · Read the bag before you open it.',
+    headline: 'Crunch smart. Snack sharp.',
+    subtitle: 'Anatomy of a pack, full 8-flavour line-up, and daily crunch schedules for campus life.',
+    image: '/assets/aistudio/pamphlet_3_with_roll_no_23f489bb.png',
+    madeBy: '25BA131',
+    keyPoints: [
+      'Pack anatomy: front grams, corner grabber, plain-words back',
+      'Daily crunch schedule: Study break, Squad hangout, Movie night',
+      'Instant Quick-Commerce scan & Blinkit integration'
+    ]
+  }
+];
 
 export const HomePage: React.FC<HomePageProps> = ({
   onSelectProduct,
@@ -21,6 +77,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [activeHeroFlavour, setActiveHeroFlavour] = useState<Product>(
     PRODUCTS.find((p) => p.id === 'classic-salted') || PRODUCTS[5]
   );
+  const [selectedPamphletIndex, setSelectedPamphletIndex] = useState<number | null>(null);
 
   const handleConfettiCTA = () => {
     try {
@@ -187,6 +244,210 @@ export const HomePage: React.FC<HomePageProps> = ({
               onQuickAdd={onQuickAdd}
             />
           ))}
+        </div>
+      </section>
+
+      {/* ---------------- SECTION: OFFICIAL ADVERTISEMENT VIDEO ---------------- */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-br from-[#4A0E17] via-[#2F060C] to-[#1A0307] text-white rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl border-4 border-[#FBBF24] relative overflow-hidden space-y-8">
+          
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <div className="inline-flex items-center gap-2 bg-black/40 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-white/15 text-xs font-black tracking-wider text-[#FBBF24] uppercase">
+              <Film className="w-3.5 h-3.5 text-[#FBBF24]" />
+              <span>Official Brand Commercial · Campus Edition</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-white text-balance">
+              Snack Smarter. <span className="text-[#FBBF24]">Crunch Louder.</span>
+            </h2>
+
+            <p className="text-sm sm:text-base text-amber-100/90 leading-relaxed font-body">
+              Watch our official commercial shot right on campus — where the question isn't whether to give up chips, but how to upgrade them with honest labels, real crunch, and zero palm oil.
+            </p>
+          </div>
+
+          {/* Video Player Theater Showcase */}
+          <div className="relative max-w-4xl mx-auto rounded-2xl overflow-hidden bg-black shadow-[0_20px_50px_rgba(0,0,0,0.6)] border-2 border-white/10 group">
+            <video
+              src="/assets/aistudio/video_advertisement_c037a883.mp4"
+              controls
+              playsInline
+              preload="metadata"
+              className="w-full h-auto max-h-[580px] object-contain rounded-2xl mx-auto"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          {/* Commercial Quotes & Credits Strip */}
+          <div className="pt-4 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+            <div className="space-y-1">
+              <div className="text-xs font-black text-[#FBBF24] uppercase tracking-wider">
+                "Enjoying food isn't illegal. We're not banning chips, we're upgrading them!"
+              </div>
+              <div className="text-xs text-amber-100/70">
+                Starring: <strong>Saurav · Pradyumna · Pratibha · Samiksha</strong> · Shri Ram College of Commerce
+              </div>
+            </div>
+
+            <button
+              onClick={() => onSelectProduct(PRODUCTS[5])}
+              className="px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider text-slate-950 bg-[#FBBF24] hover:bg-[#F59E0B] transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer whitespace-nowrap border border-amber-300"
+            >
+              Shop Classic Salted Pack Featured In Video
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ---------------- SECTION: OFFICIAL CAMPAIGN PAMPHLETS (MADE BY 25BA131) ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-[#FFFDF9] rounded-3xl p-6 sm:p-10 md:p-12 border-2 border-[#E7DECB] shadow-xl space-y-10">
+          
+          {/* Header with prominent Made by 25BA131 designation */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E8DEC8]">
+            <div className="space-y-3 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 bg-[#8B1E29] text-[#FBBF24] px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider shadow-xs">
+                  <FileText className="w-3.5 h-3.5" />
+                  Official Campaign Collateral
+                </span>
+                <span className="inline-flex items-center gap-1 bg-[#FBBF24] text-slate-950 px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider shadow-xs border border-amber-300">
+                  Made by 25BA131
+                </span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display tracking-tight text-balance">
+                Official Brand Pamphlets
+              </h2>
+
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-body">
+                Explore the official brand literature, pack anatomy diagrams, spice index, and snacking field guides created for CHIPAS. Authored and designed by roll number <strong className="text-[#8B1E29] font-black underline decoration-[#FBBF24] decoration-2">25BA131</strong>. Click any pamphlet below to view in high resolution.
+              </p>
+            </div>
+
+            {/* Author Credit Badge */}
+            <div className="bg-gradient-to-br from-[#8B1E29] to-[#5C0D15] text-white p-5 rounded-2xl border-2 border-[#FBBF24] shrink-0 text-center md:text-right shadow-lg flex flex-col justify-center">
+              <div className="text-[11px] uppercase tracking-wider text-[#FBBF24] font-black">
+                Campaign Creator & Designer
+              </div>
+              <div className="text-3xl font-black font-display text-white mt-0.5 tracking-tight">
+                Made by 25BA131
+              </div>
+              <div className="text-xs text-amber-100/80 font-semibold mt-1">
+                Roll No. 25BA131 · CHIPAS Home Edition
+              </div>
+            </div>
+          </div>
+
+          {/* 3 Pamphlet Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {OFFICIAL_PAMPHLETS.map((pamphlet, index) => (
+              <div
+                key={pamphlet.id}
+                className="bg-white rounded-2xl border-2 border-[#EADFCB] hover:border-[#8B1E29] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group"
+              >
+                {/* Card Top Pill Bar */}
+                <div className="bg-[#FAF7F0] px-4 py-2.5 border-b border-[#EADFCB] flex items-center justify-between">
+                  <span className="text-xs font-black text-[#8B1E29] uppercase tracking-wider font-display">
+                    {pamphlet.badge}
+                  </span>
+                  <span className="text-[11px] font-black bg-[#FBBF24] text-slate-950 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    Made by {pamphlet.madeBy}
+                  </span>
+                </div>
+
+                {/* Pamphlet Visual Image Showcase with Hover Zoom */}
+                <div
+                  onClick={() => setSelectedPamphletIndex(index)}
+                  className="relative aspect-4/3 sm:aspect-16/11 bg-slate-900 overflow-hidden cursor-pointer group/img"
+                  title={`Click to view ${pamphlet.title} in full resolution (Made by ${pamphlet.madeBy})`}
+                >
+                  <img
+                    src={pamphlet.image}
+                    alt={`${pamphlet.title} - Made by ${pamphlet.madeBy}`}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover/img:scale-105"
+                    loading="lazy"
+                  />
+
+                  {/* Gradient & Hover prompt */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-white">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-[#FBBF24] flex items-center gap-1.5">
+                        <Eye className="w-4 h-4" />
+                        Click to view full pamphlet
+                      </span>
+                      <span className="w-8 h-8 rounded-full bg-[#FBBF24] text-slate-950 flex items-center justify-center font-bold">
+                        <Maximize2 className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Author Watermark Tag */}
+                  <div className="absolute top-2.5 right-2.5 bg-black/75 backdrop-blur-xs text-[#FBBF24] text-[10px] font-black uppercase px-2 py-0.5 rounded-md border border-white/20">
+                    Made by {pamphlet.madeBy}
+                  </div>
+                </div>
+
+                {/* Card Text & Information */}
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-black text-slate-900 font-display leading-snug group-hover:text-[#8B1E29] transition-colors">
+                      {pamphlet.title}
+                    </h3>
+                    <div className="text-xs font-bold text-[#8B1E29]">
+                      "{pamphlet.headline}"
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed font-body">
+                      {pamphlet.subtitle}
+                    </p>
+
+                    {/* Key Highlights */}
+                    <ul className="pt-2 space-y-1.5 border-t border-slate-100 text-[11px] text-slate-600">
+                      {pamphlet.keyPoints.map((point, pIdx) => (
+                        <li key={pIdx} className="flex items-start gap-1.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#8B1E29] shrink-0 mt-0.5" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Action & Author Badge Button */}
+                  <div className="pt-3 border-t border-[#EADFCB] flex items-center justify-between gap-2">
+                    <span className="text-[11px] font-black text-slate-500 tracking-wider uppercase">
+                      Author: <span className="text-[#8B1E29] font-bold">25BA131</span>
+                    </span>
+
+                    <button
+                      onClick={() => setSelectedPamphletIndex(index)}
+                      className="px-3.5 py-1.5 rounded-lg bg-[#FAF7F0] hover:bg-[#FBBF24] text-slate-900 hover:text-slate-950 text-xs font-black uppercase tracking-wider transition-all border border-[#E0D4BD] hover:border-amber-400 flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Inspect Artwork</span>
+                      <Maximize2 className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom Attribution Bar */}
+          <div className="bg-[#FAF7F0] p-4 rounded-2xl border border-[#EADFCB] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#8B1E29] animate-pulse" />
+              <span className="text-xs font-bold text-slate-800">
+                Official Campus Print Collateral · All 3 pamphlets created by <strong className="text-[#8B1E29]">Roll No. 25BA131</strong>
+              </span>
+            </div>
+            <div className="text-xs font-bold text-slate-600">
+              High-resolution digital campaign assets embedded directly on Home
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -359,6 +620,122 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </section>
+
+      {/* ---------------- LIGHTBOX MODAL FOR PAMPHLETS (MADE BY 25BA131) ---------------- */}
+      {selectedPamphletIndex !== null && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
+          onClick={() => setSelectedPamphletIndex(null)}
+        >
+          <div
+            className="relative max-w-5xl w-full bg-[#18181B] rounded-2xl sm:rounded-3xl border-2 border-[#FBBF24] overflow-hidden shadow-2xl flex flex-col max-h-[92vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="bg-[#5C0D15] px-4 sm:px-6 py-3.5 border-b border-[#FBBF24]/30 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 min-w-0">
+                <span className="bg-[#FBBF24] text-slate-950 font-black text-xs uppercase px-2.5 py-0.5 rounded-full shrink-0">
+                  {OFFICIAL_PAMPHLETS[selectedPamphletIndex].badge}
+                </span>
+                <span className="text-white font-bold text-sm sm:text-base truncate font-display">
+                  {OFFICIAL_PAMPHLETS[selectedPamphletIndex].title}
+                </span>
+                <span className="hidden sm:inline-block bg-black/40 text-[#FBBF24] border border-[#FBBF24]/40 font-black text-xs px-2.5 py-0.5 rounded-md shrink-0">
+                  Made by 25BA131
+                </span>
+              </div>
+
+              {/* Controls */}
+              <div className="flex items-center gap-2 shrink-0">
+                <a
+                  href={OFFICIAL_PAMPHLETS[selectedPamphletIndex].image}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hidden md:flex items-center gap-1 text-xs text-[#FBBF24] hover:text-white px-2.5 py-1 rounded bg-black/30 border border-white/10"
+                  title="Open original resolution"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Original</span>
+                </a>
+
+                <button
+                  onClick={() => setSelectedPamphletIndex(null)}
+                  className="p-1.5 rounded-full bg-black/50 hover:bg-[#8B1E29] text-white hover:text-[#FBBF24] transition-colors cursor-pointer"
+                  aria-label="Close preview"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Image Body with navigation arrows */}
+            <div className="relative flex-1 overflow-auto bg-black/95 flex items-center justify-center p-2 sm:p-4 min-h-[350px]">
+              <img
+                src={OFFICIAL_PAMPHLETS[selectedPamphletIndex].image}
+                alt={`${OFFICIAL_PAMPHLETS[selectedPamphletIndex].title} - Made by 25BA131`}
+                className="max-h-[75vh] w-auto max-w-full object-contain rounded-lg shadow-2xl mx-auto"
+              />
+
+              {/* Prev / Next Buttons */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedPamphletIndex((prev) =>
+                    prev !== null ? (prev - 1 + OFFICIAL_PAMPHLETS.length) % OFFICIAL_PAMPHLETS.length : 0
+                  );
+                }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/70 hover:bg-[#FBBF24] text-white hover:text-slate-950 transition-all border border-white/20 shadow-lg cursor-pointer"
+                title="Previous Pamphlet"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedPamphletIndex((prev) =>
+                    prev !== null ? (prev + 1) % OFFICIAL_PAMPHLETS.length : 0
+                  );
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/70 hover:bg-[#FBBF24] text-white hover:text-slate-950 transition-all border border-white/20 shadow-lg cursor-pointer"
+                title="Next Pamphlet"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="bg-[#1C1917] px-4 sm:px-6 py-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-3">
+                <span className="font-black text-[#FBBF24] uppercase tracking-wider">
+                  Official Collateral · Made by 25BA131
+                </span>
+                <span className="text-slate-400 hidden sm:inline">
+                  {OFFICIAL_PAMPHLETS[selectedPamphletIndex].headline}
+                </span>
+              </div>
+
+              {/* Quick switcher dots */}
+              <div className="flex items-center gap-1.5">
+                {OFFICIAL_PAMPHLETS.map((p, idx) => (
+                  <button
+                    key={p.id}
+                    onClick={() => setSelectedPamphletIndex(idx)}
+                    className={`h-2 rounded-full transition-all cursor-pointer ${
+                      selectedPamphletIndex === idx
+                        ? 'w-6 bg-[#FBBF24]'
+                        : 'w-2 bg-slate-600 hover:bg-slate-400'
+                    }`}
+                    title={p.badge}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
