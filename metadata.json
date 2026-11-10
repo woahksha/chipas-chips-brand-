@@ -1,0 +1,6 @@
+{
+  "name": "CHIPAS - Modern Potato Chips Brand",
+  "description": "Crunch that never quits. Discover bold regional Indian flavours, no palm oil, and clean-finger grabber innovation with CHIPAS potato chips.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
