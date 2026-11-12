@@ -3,6 +3,7 @@ import { SAMPLE_STORES, ONLINE_PARTNERS, CAMPUS_HUBS } from '../data/stores';
 import { PRODUCTS } from '../data/products';
 import { StoreLocation, Product } from '../types';
 import { ChipasBagIllustration } from '../components/ChipasBagIllustration';
+import { BrandCommercialVideo } from '../components/BrandCommercialVideo';
 import { Search, MapPin, Navigation, Phone, Clock, AlertCircle, ArrowUpRight, GraduationCap, Zap, CheckCircle2, ShoppingBag, Store, FileText, Maximize2, Eye, X, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 
 interface WhereToBuyPamphlet {
@@ -609,6 +610,16 @@ export const WhereToBuyPage: React.FC<WhereToBuyPageProps> = ({ onOpenContact, o
 
         </div>
       </section>
+
+      {/* ---------------- OFFICIAL ADVERTISEMENT VIDEO: CAMPUS COMMUTE & TUCK SHOPS ---------------- */}
+      <BrandCommercialVideo
+        badgeText="Official Commercial · Campus Canteen & Retail Edition"
+        titlePrefix="From Class to Canteen: "
+        titleHighlight="Snack Smarter."
+        description="Watch our official commercial filmed right across college corridors and campus spots where CHIPAS is stocked daily — zero palm oil, real crunch, and no messy fingers during study sessions."
+        buttonText={onSelectProduct ? "Shop Classic Salted Featured In Video" : undefined}
+        onButtonClick={onSelectProduct ? () => onSelectProduct(PRODUCTS[5]) : undefined}
+      />
 
       {/* ---------------- 4. ONLINE QUICK COMMERCE PARTNERS (Rich Colored Tiles) ---------------- */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">

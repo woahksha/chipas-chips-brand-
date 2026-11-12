@@ -3,6 +3,7 @@ import { Product } from '../types';
 import { PRODUCTS } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { SpiceMeter } from '../components/SpiceMeter';
+import { BrandCommercialVideo } from '../components/BrandCommercialVideo';
 import { Search, Flame, Filter, ShoppingBag, ArrowRight, FileText, Maximize2, Eye, X, ChevronLeft, ChevronRight, ExternalLink, CheckCircle2 } from 'lucide-react';
 
 interface ProductPamphlet {
@@ -375,8 +376,21 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
         </section>
 
-      {/* Spice-O-Meter Reference Table */}
-      <section className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6">
+        {/* ---------------- SECTION: OFFICIAL ADVERTISEMENT VIDEO ---------------- */}
+        <BrandCommercialVideo
+          badgeText="Official Commercial · Product & Flavour Showcase"
+          titlePrefix="Taste That Never Quits. "
+          titleHighlight="Crunch Louder."
+          description="Watch our official commercial shot on campus at SRCC — featuring the Classic Salted benchmark pack, crisp golden potato slices, and our patented clean-finger grabber."
+          buttonText="Shop Classic Salted Featured In Video"
+          onButtonClick={() => {
+            const classic = PRODUCTS.find((p) => p.id === 'classic-salted') || PRODUCTS[5];
+            onSelectProduct(classic);
+          }}
+        />
+
+        {/* Spice-O-Meter Reference Table */}
+        <section className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <span className="text-xs font-black uppercase tracking-widest text-[#8B1E29] block">

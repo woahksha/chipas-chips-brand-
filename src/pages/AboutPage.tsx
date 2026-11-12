@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PRODUCTS } from '../data/products';
 import { ChipasBagIllustration } from '../components/ChipasBagIllustration';
 import { GrabberDemo } from '../components/GrabberDemo';
+import { BrandCommercialVideo } from '../components/BrandCommercialVideo';
 import { Product } from '../types';
 import { ArrowRight, MapPin, BookOpen, Sparkles, CheckCircle2, FileText, Maximize2, Eye, X, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 
@@ -445,6 +446,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({
 
         </div>
       </section>
+
+      {/* ---------------- OFFICIAL ADVERTISEMENT VIDEO: THE CAMPUS STORY IN ACTION ---------------- */}
+      <BrandCommercialVideo
+        badgeText="Official Commercial · The Campus Story in Action"
+        titlePrefix="The Story in Action: "
+        titleHighlight="Snack Smarter."
+        description="Watch our founding story brought to life on campus by SRCC students Saurav, Pradyumna, Pratibha, and Samiksha — capturing why snacking should be upgraded with honest ingredients and real crunch."
+        buttonText="Explore All 6 Products"
+        onButtonClick={onNavigateToProducts}
+      />
 
       {/* ---------------- CHAPTER 4: THE PACKAGING INNOVATION ---------------- */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
