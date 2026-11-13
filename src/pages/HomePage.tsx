@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Product } from '../types';
-import { PRODUCTS, BRAND_HIGHLIGHTS, BRAND_STATS } from '../data/products';
+import { PRODUCTS, BRAND_HIGHLIGHTS, BRAND_STATS, FAQ_LIST } from '../data/products';
 import { ChipasBagIllustration } from '../components/ChipasBagIllustration';
 import { ProductCard } from '../components/ProductCard';
 import { GrabberDemo } from '../components/GrabberDemo';
@@ -11,7 +11,9 @@ import { TestimonialsSection } from '../components/TestimonialsSection';
 import { SocialCommunityFeed } from '../components/SocialCommunityFeed';
 import { NewsletterSection } from '../components/NewsletterSection';
 import { BrandDivider } from '../components/BrandDivider';
-import { ArrowRight, ShoppingBag, CheckCircle2, Flame, Sparkles, Play, Film, Award, Maximize2, X, ChevronLeft, ChevronRight, FileText, ExternalLink, Eye } from 'lucide-react';
+import { Accordion, AccordionItemData } from '../components/Accordion';
+import { SpiceMeter } from '../components/SpiceMeter';
+import { ArrowRight, ShoppingBag, CheckCircle2, Flame, Sparkles, Play, Film, Award, Maximize2, X, ChevronLeft, ChevronRight, FileText, ExternalLink, Eye, Clock, ShieldCheck, Zap, MapPin, HelpCircle, Check, Minus } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface HomePageProps {
@@ -76,6 +78,107 @@ const OFFICIAL_PAMPHLETS: CampaignPamphlet[] = [
   }
 ];
 
+const UPCOMING_LAUNCHES = [
+  {
+    id: 'guntur-mirchi',
+    name: 'Guntur Mirchi Fire',
+    origin: 'Andhra Pradesh',
+    badge: 'Limited Batch · Dropping Next Month',
+    spiceLevel: 5 as const,
+    accent: '#DC2626',
+    notes: 'Sun-dried Guntur chilli heat balanced with roasted garlic & crisp rock salt.'
+  },
+  {
+    id: 'kolhapuri-tadka',
+    name: 'Kolhapuri Thecha Tadka',
+    origin: 'Maharashtra',
+    badge: 'Kettle Test Winner · Campus Poll #1',
+    spiceLevel: 4 as const,
+    accent: '#EA580C',
+    notes: 'Coarsely crushed green chilli, toasted peanut aroma, and smoky cumin tempering.'
+  },
+  {
+    id: 'mumbai-pav-bhaji',
+    name: 'Mumbai Pav Bhaji',
+    origin: 'Chowpatty Street',
+    badge: 'Seasonal Drop · Monsoon Special',
+    spiceLevel: 3 as const,
+    accent: '#D97706',
+    notes: 'Buttery spiced tomato medley, charred bell pepper, and fresh coriander zest.'
+  },
+  {
+    id: 'old-delhi-dahi-puri',
+    name: 'Old Delhi Dahi Puri',
+    origin: 'Chandni Chowk',
+    badge: 'Sweet & Tangy Vault Reserve',
+    spiceLevel: 2 as const,
+    accent: '#15803D',
+    notes: 'Cool yoghurt tang, tamarind chutney sweetness, mint, and black salt chaat snap.'
+  }
+];
+
+const DAILY_CRUNCH_MOMENTS = [
+  {
+    id: 'study-break',
+    time: '02:00 PM',
+    label: 'Between-Classes Study Break',
+    mood: 'Sharp focus, zero keyboard grease',
+    story: 'Stuck in a 3-hour lecture marathon or prepping assignments in the library? Tear the Clean Grabber corner and pinch crispy olive oil chips while keeping your laptop trackpad spotless.',
+    productId: 'olive-oil-sea-salt',
+    highlightTag: 'Clean Keyboard Approved'
+  },
+  {
+    id: 'squad-hangout',
+    time: '05:30 PM',
+    label: 'After-Hours Squad Hangout',
+    mood: 'Big bowl energy & loud flavours',
+    story: 'Stairs outside the canteen, cold nimbu sodas, and everyone arguing over which chip wins. Bold, pungent Bengal mustard heat wakes up the entire group.',
+    productId: 'bengal-kasundi-mustard',
+    highlightTag: 'Campus Crowd Favourite'
+  },
+  {
+    id: 'late-night',
+    time: '11:00 PM',
+    label: 'Late-Night Fuel & Coding',
+    mood: 'High-protein chatpata crunch',
+    story: 'Skip soggy midnight delivery. Our Protein+ Tangy Tomato Masala pack delivers 8g of golden plant protein with an electrifying anardana zing to power past midnight.',
+    productId: 'tangy-tomato-masala',
+    highlightTag: '8g Plant Protein Boost'
+  },
+  {
+    id: 'movie-night',
+    time: '09:00 PM',
+    label: 'Weekend Hostel Movie Night',
+    mood: 'Non-stop classic potato crunch',
+    story: 'Double features require a reliable staple. Thin, bubbling golden slices in pure sunflower oil with rock salt that never overpower the movie — just effortless crunch.',
+    productId: 'classic-salted',
+    highlightTag: 'Just 3 Honest Ingredients'
+  }
+];
+
+const STANDARD_COMPARISON = [
+  {
+    criteria: 'Cooking Oil',
+    chippas: '100% High-Oleic Sunflower & Cold-Pressed Olive Oil',
+    ordinary: 'Heavy Refined Palm Oil Blends'
+  },
+  {
+    criteria: 'Pack Transparency',
+    chippas: 'Grams Up Front + Plain-Words Ingredient Back',
+    ordinary: 'Fine-print servings & inflated air pockets'
+  },
+  {
+    criteria: 'Mess-Free Eating',
+    chippas: 'Patented Pull-Unfold-Pinch Corner Grabber',
+    ordinary: 'Greasy fingertips on phones & notes'
+  },
+  {
+    criteria: 'Seasoning Craft',
+    chippas: 'Stone-ground regional Indian spices (Kasundi, Malabar, Aamchur)',
+    ordinary: 'Generic artificial flavour dust'
+  }
+];
+
 export const HomePage: React.FC<HomePageProps> = ({
   onSelectProduct,
   onQuickAdd,
@@ -85,6 +188,18 @@ export const HomePage: React.FC<HomePageProps> = ({
     PRODUCTS.find((p) => p.id === 'classic-salted') || PRODUCTS[5]
   );
   const [selectedPamphletIndex, setSelectedPamphletIndex] = useState<number | null>(null);
+  const [activeMomentIndex, setActiveMomentIndex] = useState<number>(0);
+
+  const activeMoment = DAILY_CRUNCH_MOMENTS[activeMomentIndex];
+  const activeMomentProduct =
+    PRODUCTS.find((p) => p.id === activeMoment.productId) || PRODUCTS[0];
+
+  const homeFaqItems: AccordionItemData[] = FAQ_LIST.slice(0, 4).map((faq, idx) => ({
+    id: `home-faq-${idx}`,
+    title: faq.question,
+    subtitle: faq.category,
+    content: faq.answer
+  }));
 
   const handleConfettiCTA = () => {
     try {
@@ -494,6 +609,122 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
           ))}
         </div>
+
+        {/* Side-by-Side Comparison: Chippas vs Ordinary Chips */}
+        <div className="mt-12 bg-white rounded-3xl border-2 border-[#EADFCB] shadow-lg overflow-hidden">
+          <div className="bg-[#FAF7F0] px-6 sm:px-8 py-5 border-b border-[#EADFCB] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span className="text-[11px] font-black uppercase tracking-widest text-[#8B1E29]">
+                Honest Snack Audit
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-display">
+                The CHIPAS Standard vs. Ordinary Chips
+              </h3>
+            </div>
+            <span className="inline-flex items-center gap-1.5 bg-[#8B1E29] text-[#FBBF24] px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider w-fit">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              0% Palm Oil Promise
+            </span>
+          </div>
+
+          <div className="divide-y divide-[#F0E8D8]">
+            <div className="grid grid-cols-12 px-6 sm:px-8 py-3 bg-[#FFFDF9] text-[11px] font-black uppercase tracking-wider text-slate-500">
+              <div className="col-span-12 sm:col-span-3">Standard Check</div>
+              <div className="col-span-6 sm:col-span-5 text-[#8B1E29]">CHIPAS Way</div>
+              <div className="col-span-6 sm:col-span-4 text-slate-400">Ordinary Brands</div>
+            </div>
+            {STANDARD_COMPARISON.map((row, idx) => (
+              <div key={idx} className="grid grid-cols-12 px-6 sm:px-8 py-4 items-center gap-y-2 hover:bg-[#FAF8F5] transition-colors">
+                <div className="col-span-12 sm:col-span-3 font-black text-sm text-slate-900 font-display">
+                  {row.criteria}
+                </div>
+                <div className="col-span-12 sm:col-span-5 flex items-start gap-2 text-xs sm:text-sm font-bold text-emerald-900 pr-4">
+                  <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-3 h-3 stroke-[3]" />
+                  </span>
+                  <span>{row.chippas}</span>
+                </div>
+                <div className="col-span-12 sm:col-span-4 flex items-start gap-2 text-xs text-slate-500">
+                  <span className="w-5 h-5 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center shrink-0 mt-0.5">
+                    <Minus className="w-3 h-3" />
+                  </span>
+                  <span>{row.ordinary}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- SECTION: NEW LAUNCHES & LIMITED-EDITION DROPS ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-br from-[#2B090D] via-[#5C0D15] to-[#8B1E29] text-white rounded-3xl p-6 sm:p-10 md:p-12 border-2 border-[#FBBF24]/50 shadow-2xl space-y-8 relative overflow-hidden">
+          <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#FBBF24]/15 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10">
+            <div className="space-y-2 max-w-2xl">
+              <div className="inline-flex items-center gap-1.5 bg-[#FBBF24] text-slate-950 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                Coming Soon to The Kettle
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-black font-display tracking-tight text-white">
+                New Launches &amp; Limited-Edition Vault
+              </h2>
+              <p className="text-sm text-amber-100/85 font-body">
+                Small-batch regional experiments tested across college taste labs before hitting shelves nationwide. Preview our upcoming drops and vote for the next release in our Products catalogue.
+              </p>
+            </div>
+
+            <button
+              onClick={() => onNavigate('products')}
+              className="px-6 py-3.5 rounded-xl bg-[#FBBF24] hover:bg-[#F59E0B] text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg flex items-center gap-2 shrink-0 cursor-pointer border border-amber-300"
+            >
+              <span>Vote in Flavour Vault</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
+            {UPCOMING_LAUNCHES.map((drop) => (
+              <div
+                key={drop.id}
+                className="bg-black/30 backdrop-blur-xs rounded-2xl p-5 border border-white/15 hover:border-[#FBBF24]/70 transition-all flex flex-col justify-between space-y-4 group"
+              >
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <span
+                      className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full text-white"
+                      style={{ backgroundColor: drop.accent }}
+                    >
+                      {drop.origin}
+                    </span>
+                    <Flame className="w-4 h-4 text-[#FBBF24] shrink-0" />
+                  </div>
+
+                  <h3 className="text-lg font-black font-display text-white group-hover:text-[#FBBF24] transition-colors">
+                    {drop.name}
+                  </h3>
+
+                  <p className="text-xs text-amber-100/80 leading-relaxed font-body">
+                    {drop.notes}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-white/10 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-amber-200/75">
+                      Spice Level
+                    </span>
+                    <SpiceMeter level={drop.spiceLevel} size="sm" />
+                  </div>
+                  <div className="text-[11px] font-bold text-[#FBBF24]">
+                    {drop.badge}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ---------------- SECTION 6: FEATURED PRODUCT (Classic Salted) ---------------- */}
@@ -567,6 +798,121 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
+      {/* ---------------- SECTION: A DAY IN CRUNCH (INTERACTIVE CAMPUS SCHEDULE) ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
+          <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#8B1E29]">
+            <Clock className="w-3.5 h-3.5" />
+            Featured in Pamphlet 03 · Daily Crunch Guide
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-display tracking-tight text-balance">
+            Your Day in Crunch
+          </h2>
+          <p className="text-sm text-slate-600 font-body">
+            Pick your time of day to see which CHIPAS pack matches your study desk, squad hangout, or midnight marathon.
+          </p>
+        </div>
+
+        {/* Interactive Schedule Tabs */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+          {DAILY_CRUNCH_MOMENTS.map((moment, idx) => {
+            const isSelected = idx === activeMomentIndex;
+            return (
+              <button
+                key={moment.id}
+                onClick={() => setActiveMomentIndex(idx)}
+                className={`p-4 rounded-2xl border-2 text-left transition-all cursor-pointer ${
+                  isSelected
+                    ? 'bg-[#8B1E29] border-[#FBBF24] text-white shadow-lg scale-[1.02]'
+                    : 'bg-white border-[#EADFCB] hover:border-[#8B1E29]/50 text-slate-800'
+                }`}
+              >
+                <div
+                  className={`text-[11px] font-black uppercase tracking-wider ${
+                    isSelected ? 'text-[#FBBF24]' : 'text-[#8B1E29]'
+                  }`}
+                >
+                  {moment.time}
+                </div>
+                <div className="text-sm font-black font-display mt-0.5 leading-snug">
+                  {moment.label}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active Moment Showcase Card */}
+        <div className="bg-[#FFFDF9] rounded-3xl p-6 sm:p-10 border-2 border-[#EADFCB] shadow-xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-5 flex justify-center">
+              <div
+                onClick={() => onSelectProduct(activeMomentProduct)}
+                className="cursor-pointer transform hover:scale-105 transition-transform drop-shadow-xl"
+              >
+                <ChipasBagIllustration product={activeMomentProduct} size="lg" />
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 space-y-5">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="bg-[#FBBF24] text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">
+                  {activeMoment.time} Pick
+                </span>
+                <span className="bg-[#FAF7F0] text-[#8B1E29] border border-[#EADFCB] text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">
+                  {activeMoment.highlightTag}
+                </span>
+              </div>
+
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-display">
+                  {activeMomentProduct.name}
+                </h3>
+                <p className="text-xs font-bold text-[#8B1E29] mt-1">
+                  {activeMoment.mood} · {activeMomentProduct.collection} Collection
+                </p>
+              </div>
+
+              <p className="text-sm text-slate-700 leading-relaxed font-body">
+                {activeMoment.story}
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="bg-[#FAF7F0] p-3.5 rounded-xl border border-[#EADFCB]">
+                  <span className="text-[10px] uppercase tracking-wider font-black text-slate-500 block mb-1">
+                    Spice-O-Meter
+                  </span>
+                  <SpiceMeter level={activeMomentProduct.spiceLevel} size="sm" />
+                </div>
+                <div className="bg-[#FAF7F0] p-3.5 rounded-xl border border-[#EADFCB]">
+                  <span className="text-[10px] uppercase tracking-wider font-black text-slate-500 block mb-1">
+                    Ideal Campus Pairing
+                  </span>
+                  <span className="text-xs font-bold text-slate-800">
+                    {activeMomentProduct.idealPairing}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <button
+                  onClick={() => onSelectProduct(activeMomentProduct)}
+                  className="px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider text-slate-950 bg-[#FBBF24] hover:bg-[#F59E0B] shadow-md transition-all cursor-pointer border border-amber-300"
+                >
+                  Inspect Pack Details
+                </button>
+                <button
+                  onClick={() => onQuickAdd(activeMomentProduct)}
+                  className="px-6 py-3 rounded-xl font-bold text-xs text-slate-900 bg-white hover:bg-slate-50 border border-[#DFD2BA] transition-colors cursor-pointer"
+                >
+                  Quick Add · ₹{activeMomentProduct.sizes[1]?.price || 20}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ---------------- SECTION: LIFESTYLE MOMENTS CAROUSEL ---------------- */}
       <LifestyleCarousel />
 
@@ -581,6 +927,58 @@ export const HomePage: React.FC<HomePageProps> = ({
       <SocialCommunityFeed />
 
       <BrandDivider variant="wave" color="#EADFCB" />
+
+      {/* ---------------- SECTION: QUICK-COMMERCE & CAMPUS FINDER TEASER ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-[#FAF7F0] rounded-3xl p-6 sm:p-10 border-2 border-[#EADFCB] flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="space-y-3 max-w-2xl">
+            <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#8B1E29]">
+              <Zap className="w-3.5 h-3.5" />
+              10-Minute Campus &amp; Metro Drops
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-display">
+              Craving crisp crunch right now? Find CHIPAS near you.
+            </h2>
+            <p className="text-sm text-slate-600 font-body leading-relaxed">
+              Stocked at demo quick-commerce hubs (Blinkit &amp; Zepto), campus night canteens, and select supermarkets across Bengaluru, Mumbai, Delhi NCR, Pune, and Hyderabad.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <button
+              onClick={() => onNavigate('where-to-buy')}
+              className="px-7 py-4 rounded-2xl font-black text-xs uppercase tracking-wider bg-[#8B1E29] hover:bg-[#5C0D15] text-[#FBBF24] shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <MapPin className="w-4 h-4" />
+              <span>Open Store Locator</span>
+            </button>
+            <button
+              onClick={() => onNavigate('about')}
+              className="px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-wider bg-white hover:bg-slate-50 text-slate-900 border border-[#DFD2BA] transition-all cursor-pointer"
+            >
+              Read Our Story
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- SECTION: TOP HOME FAQS ---------------- */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
+          <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#8B1E29]">
+            <HelpCircle className="w-3.5 h-3.5" />
+            Quick Answers
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-display">
+            Curious about the Crunch?
+          </h2>
+          <p className="text-sm text-slate-600">
+            Everything first-time crunchers ask about our oil, grams-up-front promise, and Clean Grabber.
+          </p>
+        </div>
+
+        <Accordion items={homeFaqItems} allowMultiple={false} />
+      </section>
 
       {/* ---------------- SECTION: NEWSLETTER SUBSCRIPTION ---------------- */}
       <NewsletterSection sourcePage="Home" />
