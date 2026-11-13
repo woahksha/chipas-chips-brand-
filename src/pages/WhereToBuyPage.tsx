@@ -4,7 +4,11 @@ import { PRODUCTS } from '../data/products';
 import { StoreLocation, Product } from '../types';
 import { ChipasBagIllustration } from '../components/ChipasBagIllustration';
 import { BrandCommercialVideo } from '../components/BrandCommercialVideo';
-import { Search, MapPin, Navigation, Phone, Clock, AlertCircle, ArrowUpRight, GraduationCap, Zap, CheckCircle2, ShoppingBag, Store, FileText, Maximize2, Eye, X, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { InteractiveStoreMap } from '../components/InteractiveStoreMap';
+import { EventsCalendar } from '../components/EventsCalendar';
+import { Accordion, AccordionItemData } from '../components/Accordion';
+import { BrandDivider } from '../components/BrandDivider';
+import { Search, MapPin, Navigation, Phone, Clock, AlertCircle, ArrowUpRight, GraduationCap, Zap, CheckCircle2, ShoppingBag, Store, FileText, Maximize2, Eye, X, ChevronLeft, ChevronRight, ExternalLink, Send, HelpCircle, Truck, Package, Building2, Sparkles, ShieldCheck, Check } from 'lucide-react';
 
 interface WhereToBuyPamphlet {
   id: string;
@@ -50,6 +54,36 @@ const WHERE_TO_BUY_PAMPHLETS: WhereToBuyPamphlet[] = [
   }
 ];
 
+const RETAILER_FAQS: AccordionItemData[] = [
+  {
+    id: 'faq-dispatch',
+    badge: 'Quick Commerce',
+    badgeColor: 'bg-emerald-700 text-white',
+    title: 'How fast is quick commerce delivery in major cities?',
+    content: (
+      <p>Through our direct dark store integrations with Blinkit, Zepto, and Swiggy Instamart, average delivery times are between 8 to 14 minutes across Delhi NCR, Mumbai, Bengaluru, Kolkata, Pune, and Ahmedabad.</p>
+    )
+  },
+  {
+    id: 'faq-distributor',
+    badge: 'B2B Wholesale',
+    badgeColor: 'bg-[#8B1E29] text-[#FBBF24]',
+    title: 'How can supermarkets, canteen contractors, and kiranas stock Chippas?',
+    content: (
+      <p>We provide retail cartons of 24, 48, and 96 units with attractive retailer margins (28–35%), branded corrugated floor displays, and guaranteed replacement of unsold packs within 90 days. Reach out via our distributor enquiry form below or email retail@chipas.in.</p>
+    )
+  },
+  {
+    id: 'faq-campus-tuck',
+    badge: 'Campus Program',
+    badgeColor: 'bg-amber-600 text-white',
+    title: 'How does the Campus Tuck Shop direct supply program work?',
+    content: (
+      <p>Student councils and hostel tuck shop managers can order directly at institutional rates with zero shipping fees. We also provide free branded dispensers and sticker sets for campus events.</p>
+    )
+  }
+];
+
 interface WhereToBuyPageProps {
   onOpenContact: () => void;
   onSelectProduct?: (product: Product) => void;
@@ -60,6 +94,31 @@ export const WhereToBuyPage: React.FC<WhereToBuyPageProps> = ({ onOpenContact, o
   const [selectedCity, setSelectedCity] = useState<string>('All');
   const [selectedStore, setSelectedStore] = useState<StoreLocation | null>(SAMPLE_STORES[0]);
   const [selectedPamphletIndex, setSelectedPamphletIndex] = useState<number | null>(null);
+  const [cityVotes, setCityVotes] = useState<Record<string, boolean>>({});
+  const [partnerForm, setPartnerForm] = useState({
+    outletName: '',
+    city: '',
+    outletType: 'Campus Tuck Shop',
+    monthlyVolume: '2–5 Cartons (48–120 packs)',
+    contactEmail: '',
+    phone: ''
+  });
+  const [partnerSubmitted, setPartnerSubmitted] = useState(false);
+  const [partnerError, setPartnerError] = useState('');
+
+  const handleToggleCityVote = (cityName: string) => {
+    setCityVotes((prev) => ({ ...prev, [cityName]: !prev[cityName] }));
+  };
+
+  const handlePartnerSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!partnerForm.outletName.trim() || !partnerForm.city.trim() || !partnerForm.contactEmail.includes('@')) {
+      setPartnerError('Please fill in your store/campus name, city, and a valid contact email.');
+      return;
+    }
+    setPartnerError('');
+    setPartnerSubmitted(true);
+  };
 
   const quickCities = ['All', 'Delhi NCR', 'Mumbai', 'Bengaluru', 'Kolkata', 'Ahmedabad', 'Kochi'];
 
@@ -462,6 +521,13 @@ export const WhereToBuyPage: React.FC<WhereToBuyPageProps> = ({ onOpenContact, o
 
       </section>
 
+      {/* ---------------- 2. INTERACTIVE METRO DISTRIBUTION MAP ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+        <InteractiveStoreMap />
+      </section>
+
+      <BrandDivider variant="wave" color="#E7DECB" />
+
       {/* ---------------- SECTION: OFFICIAL RETAIL & CAMPUS PAMPHLETS (MADE BY 25BA104) ---------------- */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-[#FFFDF9] rounded-3xl p-6 sm:p-10 md:p-12 border-2 border-[#E7DECB] shadow-xl space-y-10">
@@ -715,32 +781,448 @@ export const WhereToBuyPage: React.FC<WhereToBuyPageProps> = ({ onOpenContact, o
         </div>
       </section>
 
-      {/* ---------------- 5. VIBRANT RED & YELLOW PARTNERSHIP BANNER ---------------- */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-[#5C0D15] via-[#8B1E29] to-[#6B111A] text-white rounded-3xl p-8 sm:p-12 border-4 border-[#FBBF24] shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
-          
-          <div className="space-y-2 text-center md:text-left">
-            <span className="text-xs font-black uppercase tracking-widest text-[#FBBF24]">
-              Campus Ambassadors & Retail Outlets
-            </span>
-            <h3 className="text-2xl sm:text-4xl font-black font-display text-white">
-              Want CHIPAS stocked at your college or store?
-            </h3>
-            <p className="text-xs sm:text-sm text-amber-100/90 max-w-xl leading-relaxed">
-              We partner directly with university tuck shops, college student councils, supermarket buyers, and local grocers. Let's get the crunch on your shelves!
+      <BrandDivider variant="zigzag" color="#FBBF24" />
+
+      {/* ---------------- 5. REGIONAL METRO COVERAGE & CITY EXPANSION ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#8B1E29]">
+              <Truck className="w-4 h-4 text-[#8B1E29]" />
+              <span>National Distribution Footprint</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-display mt-1">
+              Active Cities & Expansion Pipeline
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
+              Fresh kettle batches dispatch every 48 hours from our regional distribution hubs to over 250+ quick commerce dark stores and retail shelves.
             </p>
           </div>
+          <span className="text-xs font-black bg-[#8B1E29] text-[#FBBF24] px-3.5 py-1.5 rounded-xl">
+            6 Active Metros · 4 Launching Soon
+          </span>
+        </div>
 
-          <div className="shrink-0">
-            <button
-              onClick={onOpenContact}
-              className="px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-wider text-slate-950 bg-[#FBBF24] hover:bg-[#F59E0B] shadow-xl hover:shadow-2xl transition-all active:scale-95 cursor-pointer border border-amber-300"
+        {/* Active Metro Coverage Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {[
+            {
+              city: 'Delhi NCR',
+              hubs: '38+ Stores & Campus Tucks',
+              areas: 'North Campus, Connaught Place, Cyber Hub, GK-1, Hauz Khas',
+              delivery: 'Blinkit & Zepto in 8–10 mins',
+              accent: 'border-[#8B1E29] bg-gradient-to-br from-rose-50 to-white',
+              pill: 'bg-[#8B1E29] text-[#FBBF24]'
+            },
+            {
+              city: 'Mumbai',
+              hubs: '22+ Gourmet Marts & Hostels',
+              areas: 'Bandra West, Powai (IIT-B), Lower Parel, Fort, Juhu',
+              delivery: 'Zepto, Blinkit & Instamart',
+              accent: 'border-amber-400 bg-gradient-to-br from-amber-50 to-white',
+              pill: 'bg-amber-600 text-white'
+            },
+            {
+              city: 'Bengaluru',
+              hubs: '19+ Tech Parks & Campuses',
+              areas: 'Indiranagar, Koramangala, Hosur Rd, Bannerghatta Rd',
+              delivery: '24/7 Dark Store Express',
+              accent: 'border-emerald-400 bg-gradient-to-br from-emerald-50 to-white',
+              pill: 'bg-emerald-700 text-white'
+            },
+            {
+              city: 'Kolkata',
+              hubs: '12+ Retail & Street Hubs',
+              areas: 'Park Street, Salt Lake, Ballygunge, Jadavpur',
+              delivery: 'Blinkit & Spencer’s Retail',
+              accent: 'border-orange-400 bg-gradient-to-br from-orange-50 to-white',
+              pill: 'bg-orange-600 text-white'
+            },
+            {
+              city: 'Ahmedabad',
+              hubs: '9+ Farsan Marts & Campuses',
+              areas: 'Vastrapur, SG Highway, Navrangpura',
+              delivery: 'Instamart & Campus Marts',
+              accent: 'border-sky-400 bg-gradient-to-br from-sky-50 to-white',
+              pill: 'bg-sky-700 text-white'
+            },
+            {
+              city: 'Kochi',
+              hubs: '8+ Coastal Outlets',
+              areas: 'Panampilly Nagar, Edappally, Kakkanad',
+              delivery: 'Lulu Express & Instamart',
+              accent: 'border-teal-400 bg-gradient-to-br from-teal-50 to-white',
+              pill: 'bg-teal-700 text-white'
+            }
+          ].map((zone) => (
+            <div
+              key={zone.city}
+              onClick={() => {
+                setSelectedCity(zone.city);
+                window.scrollTo({ top: 380, behavior: 'smooth' });
+              }}
+              className={`rounded-2xl border-2 p-5 shadow-xs hover:shadow-md transition-all cursor-pointer space-y-3 ${zone.accent}`}
             >
-              Get In Touch With Team
+              <div className="flex items-center justify-between gap-2">
+                <h3 className="text-lg font-black text-slate-900 font-display">{zone.city}</h3>
+                <span className={`text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full ${zone.pill}`}>
+                  Live Now
+                </span>
+              </div>
+              <div className="text-xs font-bold text-[#8B1E29]">{zone.hubs}</div>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                <strong>Key Areas:</strong> {zone.areas}
+              </p>
+              <div className="pt-2 border-t border-black/5 flex items-center justify-between text-[11px] font-bold text-slate-700">
+                <span>⚡ {zone.delivery}</span>
+                <span className="text-[#8B1E29] hover:underline">Filter Stores →</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Upcoming City Expansion Voting Strip */}
+        <div className="bg-[#5C0D15] text-white rounded-3xl p-6 sm:p-8 border-2 border-[#FBBF24] space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span className="text-[11px] font-black uppercase tracking-widest text-[#FBBF24]">
+                Next City Rollout · Vote to Prioritize
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black font-display text-white">
+                Where Should Chippas Land Next?
+              </h3>
+            </div>
+            <span className="text-xs text-amber-100/80">
+              Cities with the most campus votes launch first in Q1 2027
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { name: 'Pune', eta: 'Launching Dec 2026', baseVotes: 2410 },
+              { name: 'Hyderabad', eta: 'Launching Jan 2027', baseVotes: 2180 },
+              { name: 'Chandigarh', eta: 'Launching Jan 2027', baseVotes: 1640 },
+              { name: 'Jaipur', eta: 'Launching Feb 2027', baseVotes: 1395 }
+            ].map((city) => {
+              const hasVoted = !!cityVotes[city.name];
+              return (
+                <div
+                  key={city.name}
+                  className="bg-black/30 rounded-2xl p-4 border border-white/15 flex flex-col justify-between space-y-3"
+                >
+                  <div>
+                    <div className="text-base font-black text-white font-display">{city.name}</div>
+                    <div className="text-[11px] text-[#FBBF24] font-semibold">{city.eta}</div>
+                  </div>
+                  <button
+                    onClick={() => handleToggleCityVote(city.name)}
+                    className={`w-full py-2 rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer transition-all flex items-center justify-center gap-1.5 ${
+                      hasVoted
+                        ? 'bg-emerald-500 text-slate-950'
+                        : 'bg-[#FBBF24] hover:bg-[#F59E0B] text-slate-950'
+                    }`}
+                  >
+                    {hasVoted ? <Check className="w-3.5 h-3.5" /> : <Sparkles className="w-3.5 h-3.5" />}
+                    <span>{hasVoted ? 'Voted!' : 'Vote'} ({(city.baseVotes + (hasVoted ? 1 : 0)).toLocaleString()})</span>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- 6. BULK ORDERS, HOSTEL CRATES & EVENT STALLS ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div>
+          <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#8B1E29]">
+            <Package className="w-4 h-4 text-[#8B1E29]" />
+            <span>Direct From Kettle · Bulk & Event Supply</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-display mt-1">
+            Hostel Crates, College Fests & Office Pantries
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
+            Stocking up for an entire hostel floor, annual cultural fest, or startup snack shelf? Order factory-fresh cartons directly.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              title: 'Hostel Floor Crate',
+              packs: '24 × 60g Packs (Mix Any Flavour)',
+              price: '₹420 (Save 12%)',
+              perks: ['Free campus corridor delivery', 'Custom flavour assortment', 'Fresh 48-hour kettle batch'],
+              badge: 'Student Special',
+              color: 'from-[#8B1E29] to-[#5C0D15]'
+            },
+            {
+              title: 'College Fest Tasting Stall',
+              packs: '120+ Packs + Branded Booth',
+              price: 'Custom Campus Grant',
+              perks: ['Free Chippas grabber dispensers', 'On-ground event sponsorship kit', 'Dedicated student coordinator'],
+              badge: 'Fests & Clubs',
+              color: 'from-[#1A4329] to-[#112A1A]'
+            },
+            {
+              title: 'Office & Startup Pantry Box',
+              packs: '48 × 60g Packs / Bi-Weekly',
+              price: '₹840 / Box (GST Invoice)',
+              perks: ['Zero palm oil wellness upgrade', 'Keeps coding keyboards clean', 'Monthly auto-replenish option'],
+              badge: 'B2B Office Supply',
+              color: 'from-[#1E3A8A] to-[#172554]'
+            }
+          ].map((pkg) => (
+            <div
+              key={pkg.title}
+              className={`bg-gradient-to-br ${pkg.color} text-white rounded-3xl p-6 sm:p-7 border-2 border-[#FBBF24]/50 shadow-lg flex flex-col justify-between space-y-5`}
+            >
+              <div className="space-y-3">
+                <span className="inline-block bg-[#FBBF24] text-slate-950 text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+                  {pkg.badge}
+                </span>
+                <h3 className="text-xl font-black font-display text-white">{pkg.title}</h3>
+                <div className="text-xs font-bold text-amber-200">{pkg.packs}</div>
+                <ul className="space-y-1.5 pt-2 border-t border-white/15 text-xs text-amber-50/90">
+                  {pkg.perks.map((perk, idx) => (
+                    <li key={idx} className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#FBBF24] shrink-0" />
+                      <span>{perk}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-3 border-t border-white/15 flex items-center justify-between gap-3">
+                <span className="text-sm font-black text-[#FBBF24]">{pkg.price}</span>
+                <a
+                  href="#stockist-form"
+                  className="px-4 py-2 rounded-xl bg-[#FBBF24] hover:bg-[#F59E0B] text-slate-950 font-black text-xs uppercase tracking-wider shadow-sm transition-colors"
+                >
+                  Request Crate
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------------- 7. CAMPUS LAUNCHES & RESTOCK CALENDAR ---------------- */}
+      <EventsCalendar />
+
+      <BrandDivider variant="dots" color="#8B1E29" />
+
+      {/* ---------------- 8. INTERACTIVE STOCKIST & CAMPUS TUCK SHOP ENQUIRY FORM ---------------- */}
+      <section id="stockist-form" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-br from-[#FFFDF9] to-[#FAF3E3] rounded-3xl p-6 sm:p-10 md:p-12 border-2 border-[#8B1E29] shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Side Pitch */}
+          <div className="lg:col-span-5 space-y-5">
+            <span className="inline-flex items-center gap-1.5 bg-[#8B1E29] text-[#FBBF24] px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider">
+              <Building2 className="w-3.5 h-3.5" />
+              <span>Retail & Campus Partnership</span>
+            </span>
+
+            <h3 className="text-2xl sm:text-4xl font-black font-display text-slate-900 leading-tight">
+              Stock CHIPAS on Your Shelves or Canteen
+            </h3>
+
+            <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-body">
+              Whether you manage a college tuck shop, gourmet supermarket, local kirana, or corporate cafeteria, we offer high retail margins, free counter display racks, and zero-risk stock rotation.
+            </p>
+
+            <div className="space-y-3 pt-2 text-xs text-slate-800 font-semibold">
+              <div className="flex items-center gap-2.5 bg-white p-3 rounded-xl border border-[#E7DECB]">
+                <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
+                <span>28%–35% Retail Margin + Zero Unsold Risk</span>
+              </div>
+              <div className="flex items-center gap-2.5 bg-white p-3 rounded-xl border border-[#E7DECB]">
+                <Truck className="w-4 h-4 text-[#8B1E29] shrink-0" />
+                <span>48-Hour Direct Dispatch from Regional Hubs</span>
+              </div>
+              <div className="flex items-center gap-2.5 bg-white p-3 rounded-xl border border-[#E7DECB]">
+                <GraduationCap className="w-4 h-4 text-amber-700 shrink-0" />
+                <span>Campus Representative Program for Students</span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={onOpenContact}
+              className="text-xs font-black text-[#8B1E29] underline hover:text-[#5C0D15] cursor-pointer"
+            >
+              Or open quick message modal →
             </button>
           </div>
 
+          {/* Right Side Interactive Form */}
+          <div className="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-8 border border-[#E7DECB] shadow-md">
+            {partnerSubmitted ? (
+              <div className="py-10 text-center space-y-4">
+                <div className="w-14 h-14 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto font-black text-2xl">
+                  ✓
+                </div>
+                <h4 className="text-2xl font-black font-display text-slate-900">
+                  Partnership Request Received!
+                </h4>
+                <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto">
+                  Thank you! Our distribution lead (<strong>25BA104</strong>) will reach out to{' '}
+                  <strong className="text-[#8B1E29]">{partnerForm.contactEmail}</strong> within 24 hours for{' '}
+                  <strong>{partnerForm.outletName}</strong> ({partnerForm.city}).
+                </p>
+                <div className="inline-block bg-[#FAF7F0] border border-[#E0D4BD] px-4 py-1.5 rounded-lg text-xs font-mono font-bold text-slate-800">
+                  Ref ID: CHP-RTL-{Math.floor(1000 + Math.random() * 9000)}
+                </div>
+                <div>
+                  <button
+                    onClick={() => {
+                      setPartnerSubmitted(false);
+                      setPartnerForm({
+                        outletName: '',
+                        city: '',
+                        outletType: 'Campus Tuck Shop',
+                        monthlyVolume: '2–5 Cartons (48–120 packs)',
+                        contactEmail: '',
+                        phone: ''
+                      });
+                    }}
+                    className="mt-2 px-5 py-2 rounded-xl bg-[#8B1E29] text-white text-xs font-bold cursor-pointer"
+                  >
+                    Submit Another Outlet
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handlePartnerSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-[11px] font-black uppercase tracking-wider text-slate-700 block mb-1">
+                      Store / Campus Name *
+                    </label>
+                    <input
+                      type="text"
+                      value={partnerForm.outletName}
+                      onChange={(e) => setPartnerForm({ ...partnerForm, outletName: e.target.value })}
+                      placeholder="e.g. Hansraj Co-op Tuck Shop"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold text-slate-900 focus:outline-hidden focus:border-[#8B1E29]"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[11px] font-black uppercase tracking-wider text-slate-700 block mb-1">
+                      City & PIN Code *
+                    </label>
+                    <input
+                      type="text"
+                      value={partnerForm.city}
+                      onChange={(e) => setPartnerForm({ ...partnerForm, city: e.target.value })}
+                      placeholder="e.g. Pune · 411004"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold text-slate-900 focus:outline-hidden focus:border-[#8B1E29]"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-[11px] font-black uppercase tracking-wider text-slate-700 block mb-1">
+                      Outlet Category
+                    </label>
+                    <select
+                      value={partnerForm.outletType}
+                      onChange={(e) => setPartnerForm({ ...partnerForm, outletType: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold text-slate-900 bg-white focus:outline-hidden focus:border-[#8B1E29]"
+                    >
+                      <option>Campus Tuck Shop</option>
+                      <option>Supermarket / Gourmet Mart</option>
+                      <option>Hostel Floor / Student Fest</option>
+                      <option>Corporate Office Pantry</option>
+                      <option>Kirana / General Store</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] font-black uppercase tracking-wider text-slate-700 block mb-1">
+                      Estimated Order Size
+                    </label>
+                    <select
+                      value={partnerForm.monthlyVolume}
+                      onChange={(e) => setPartnerForm({ ...partnerForm, monthlyVolume: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold text-slate-900 bg-white focus:outline-hidden focus:border-[#8B1E29]"
+                    >
+                      <option>1 Hostel Crate (24 packs)</option>
+                      <option>2–5 Cartons (48–120 packs)</option>
+                      <option>5–20 Cartons (Retail Outlet)</option>
+                      <option>20+ Cartons (Distributor / Fest)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-[11px] font-black uppercase tracking-wider text-slate-700 block mb-1">
+                      Contact Email *
+                    </label>
+                    <input
+                      type="email"
+                      value={partnerForm.contactEmail}
+                      onChange={(e) => setPartnerForm({ ...partnerForm, contactEmail: e.target.value })}
+                      placeholder="buyer@campus.edu.in"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold text-slate-900 focus:outline-hidden focus:border-[#8B1E29]"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[11px] font-black uppercase tracking-wider text-slate-700 block mb-1">
+                      Phone / WhatsApp
+                    </label>
+                    <input
+                      type="tel"
+                      value={partnerForm.phone}
+                      onChange={(e) => setPartnerForm({ ...partnerForm, phone: e.target.value })}
+                      placeholder="+91 98XXX XXXXX"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold text-slate-900 focus:outline-hidden focus:border-[#8B1E29]"
+                    />
+                  </div>
+                </div>
+
+                {partnerError && (
+                  <p className="text-xs font-bold text-rose-600">{partnerError}</p>
+                )}
+
+                <button
+                  type="submit"
+                  className="w-full py-3.5 rounded-xl bg-[#FBBF24] hover:bg-[#F59E0B] text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all border border-amber-300"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>Submit Retail / Campus Request</span>
+                </button>
+              </form>
+            )}
+          </div>
+
         </div>
+      </section>
+
+      <BrandDivider variant="wave" color="#E7DECB" />
+
+      {/* ---------------- 7. RETAIL & DISTRIBUTION FAQS ACCORDION ---------------- */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="text-center space-y-2">
+          <span className="text-xs font-black uppercase tracking-widest text-[#8B1E29]">
+            Retailer & Partner Help
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-display">
+            Distribution & Logistics FAQs
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600">
+            Everything you need to know about Quick Commerce fulfillment, shelf stocking, and campus partnerships.
+          </p>
+        </div>
+
+        <Accordion
+          items={RETAILER_FAQS}
+          defaultOpenIds={['faq-dispatch']}
+          allowMultiple={true}
+        />
       </section>
 
       {/* ---------------- LIGHTBOX MODAL FOR PAMPHLETS (MADE BY 25BA104) ---------------- */}

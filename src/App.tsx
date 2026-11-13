@@ -143,6 +143,7 @@ export default function App() {
         {currentPage === 'where-to-buy' && (
           <WhereToBuyPage
             onOpenContact={() => setContactModalOpen(true)}
+            onSelectProduct={(p) => setSelectedProduct(p)}
           />
         )}
       </main>

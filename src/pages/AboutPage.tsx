@@ -3,8 +3,11 @@ import { PRODUCTS } from '../data/products';
 import { ChipasBagIllustration } from '../components/ChipasBagIllustration';
 import { GrabberDemo } from '../components/GrabberDemo';
 import { BrandCommercialVideo } from '../components/BrandCommercialVideo';
+import { MilestonesTimeline } from '../components/MilestonesTimeline';
+import { Accordion, AccordionItemData } from '../components/Accordion';
+import { BrandDivider } from '../components/BrandDivider';
 import { Product } from '../types';
-import { ArrowRight, MapPin, BookOpen, Sparkles, CheckCircle2, FileText, Maximize2, Eye, X, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { ArrowRight, MapPin, BookOpen, Sparkles, CheckCircle2, FileText, Maximize2, Eye, X, ChevronLeft, ChevronRight, ExternalLink, Users, Target, ShieldCheck, Leaf, Factory, Scale, Award, Heart } from 'lucide-react';
 
 interface AboutPamphlet {
   id: string;
@@ -53,6 +56,83 @@ const ABOUT_PAMPHLETS: AboutPamphlet[] = [
       'Pack guide: 30g Quick Bite, 80g Sharing For Two, 150g Party Pack',
       'Transparent nutrition table & "Try The Crunch" promotional voucher'
     ]
+  }
+];
+
+interface StudentFounder {
+  name: string;
+  rollNo: string;
+  role: string;
+  pageFocus: string;
+  bio: string;
+  favoriteFlavour: string;
+}
+
+const STUDENT_FOUNDERS: StudentFounder[] = [
+  {
+    name: 'Saurav',
+    rollNo: '25BA131',
+    role: 'Co-Founder & Brand Architect',
+    pageFocus: 'Curator & Designer · Home Experience',
+    bio: 'Lead strategist behind the Chippas brand identity, clean-finger grabber origami patent, and high-impact campus campaigns.',
+    favoriteFlavour: 'Classic Salted'
+  },
+  {
+    name: 'Pratibha Biswal',
+    rollNo: '25BA108',
+    role: 'Co-Founder & Creative Director',
+    pageFocus: 'Curator & Designer · About Us & Heritage',
+    bio: 'Champion of Hindi typographic heritage and the "क्रंच ईमानदारी से" manifesto, connecting truck-art aesthetics to modern snacking.',
+    favoriteFlavour: 'Bengal Kasundi Mustard'
+  },
+  {
+    name: 'Samiksha',
+    rollNo: '25BA136',
+    role: 'Co-Founder & Product Lead',
+    pageFocus: 'Curator & Designer · Product Formulations',
+    bio: 'Food scientist & palate curator behind our authentic regional spice ratios, zero palm oil testing, and nutritional transparency.',
+    favoriteFlavour: 'Sour Cream & Onion'
+  },
+  {
+    name: 'Pradyumna',
+    rollNo: '25BA104',
+    role: 'Co-Founder & Distribution Lead',
+    pageFocus: 'Curator & Designer · Where to Buy & Logistics',
+    bio: 'Spearheaded 10-minute Quick Commerce integration with Blinkit & Zepto and campus tuck shop network across top universities.',
+    favoriteFlavour: 'Gujarat Khatta Meetha'
+  }
+];
+
+const ABOUT_STORY_ACCORDIONS: AccordionItemData[] = [
+  {
+    id: 'story-origin',
+    badge: 'Campus Roots',
+    badgeColor: 'bg-[#8B1E29] text-[#FBBF24]',
+    title: 'How did four university students build Chippas from scratch?',
+    subtitle: 'From late-night study frustration to a recognized FMCG challenger',
+    content: (
+      <p>Between marathon exam preps at SRCC, we realized that commercial chips were fundamentally broken — oily hands spoiled laptops, packets were 70% air with microscopic 15g serving claims, and palm oil dominated the frying vats. We pooled our savings, formulated real spice blends in campus kitchens, and registered our patented corner grabber to build the snack brand we always wished existed.</p>
+    )
+  },
+  {
+    id: 'story-potatoes',
+    badge: 'Farm Sourcing',
+    badgeColor: 'bg-emerald-700 text-white',
+    title: 'Where do the potatoes and spices actually come from?',
+    subtitle: '100% farm contract relationships in Gujarat, West Bengal, and Andhra Pradesh',
+    content: (
+      <p>We source high-starch Chipsona potatoes directly from contracted agricultural cooperatives in Deesa, Gujarat and Hooghly, West Bengal. They are washed, skin-sliced with precision blades, and kettle-fried within 24 hours of arrival to maintain natural sugars and crispness.</p>
+    )
+  },
+  {
+    id: 'story-sustainability',
+    badge: 'Eco & Sustainability',
+    badgeColor: 'bg-sky-700 text-white',
+    title: 'What is Chippas doing about plastic recycling and sustainability?',
+    subtitle: '100% plastic-neutral certification and compostable origami grabbers',
+    content: (
+      <p>We collect and recycle 100% of our multi-layer packaging through verified EPR (Extended Producer Responsibility) waste management partners in India. Our pull-out corner grabber is manufactured from certified food-grade, biodegradable pulp paper with zero chemical coatings.</p>
+    )
   }
 ];
 
@@ -468,6 +548,211 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           </h2>
         </div>
         <GrabberDemo />
+      </section>
+
+      <BrandDivider variant="wave" color="#E7DECB" />
+
+      {/* ---------------- SECTION: BRAND VALUES & MISSION ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <span className="text-xs font-black uppercase tracking-widest text-[#8B1E29]">
+            Our Guiding Philosophy
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-display">
+            Mission, Vision & Core Values
+          </h2>
+          <p className="text-sm text-slate-600">
+            How we're redefining the Indian snacking experience with honesty and innovation.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border-2 border-[#E7DECB] shadow-xs space-y-3">
+            <div className="w-12 h-12 rounded-2xl bg-rose-50 text-[#8B1E29] flex items-center justify-center font-bold">
+              <Target className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-black text-slate-900 font-display">Our Mission</h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-body">
+              To deliver unapologetically authentic Indian flavours crafted from real potatoes, cooked in clean heart-healthy oil, and served with packaging that respects everyday life.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border-2 border-[#E7DECB] shadow-xs space-y-3">
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold">
+              <Sparkles className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-black text-slate-900 font-display">Our Vision</h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-body">
+              To be India’s benchmark student-first FMCG snack brand — proving that transparency, zero palm oil, and thoughtful packaging design can conquer mainstream shelves.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border-2 border-[#E7DECB] shadow-xs space-y-3">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
+              <Leaf className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-black text-slate-900 font-display">Sustainability Pledge</h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-body">
+              100% plastic neutral collection through verified Indian recycling bodies. Biodegradable, compostable paper pull-out grabbers on every single pouch.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <BrandDivider variant="dots" color="#8B1E29" />
+
+      {/* ---------------- SECTION: MILESTONES TIMELINE ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <span className="text-xs font-black uppercase tracking-widest text-[#8B1E29]">
+            The Journey
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-display">
+            Milestones & Brand Evolution
+          </h2>
+          <p className="text-sm text-slate-600">
+            From hostel origami prototypes to thousands of bags crunched daily across India.
+          </p>
+        </div>
+
+        <MilestonesTimeline />
+      </section>
+
+      <BrandDivider variant="zigzag" color="#FBBF24" />
+
+      {/* ---------------- SECTION: BEHIND THE SCENES & SOURCING ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-[#FAF7F0] rounded-3xl p-6 sm:p-10 md:p-12 border-2 border-[#E7DECB] shadow-sm space-y-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <span className="text-xs font-black uppercase tracking-widest text-[#8B1E29] flex items-center gap-1.5">
+                <Factory className="w-4 h-4 text-[#8B1E29]" />
+                <span>Behind the Scenes</span>
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-display tracking-tight mt-1">
+                Farm to Bag: How Chippas is Made
+              </h3>
+            </div>
+            <span className="text-xs font-bold text-slate-500 bg-white px-3 py-1.5 rounded-xl border border-[#DCD0BA]">
+              3-Stage Quality Process
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white p-5 rounded-2xl border border-[#E7DECB] space-y-2">
+              <span className="w-7 h-7 rounded-full bg-[#8B1E29] text-[#FBBF24] flex items-center justify-center font-bold text-xs">
+                01
+              </span>
+              <h4 className="text-base font-bold text-slate-900 font-display">Contract Farming & Harvest</h4>
+              <p className="text-xs text-slate-600 leading-relaxed font-body">
+                We contract high-solids Chipsona potatoes from Deesa, Gujarat and Hooghly, West Bengal. Every potato is checked for low sugar content to avoid burning.
+              </p>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl border border-[#E7DECB] space-y-2">
+              <span className="w-7 h-7 rounded-full bg-[#8B1E29] text-[#FBBF24] flex items-center justify-center font-bold text-xs">
+                02
+              </span>
+              <h4 className="text-base font-bold text-slate-900 font-display">Kettle Frying & Zero Palm Oil</h4>
+              <p className="text-xs text-slate-600 leading-relaxed font-body">
+                Thickly cut slices are flash-cooked in pure high-oleic sunflower oil. Never recycled palm oil, giving a pristine clean crunch with no throat-burning grease.
+              </p>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl border border-[#E7DECB] space-y-2">
+              <span className="w-7 h-7 rounded-full bg-[#8B1E29] text-[#FBBF24] flex items-center justify-center font-bold text-xs">
+                03
+              </span>
+              <h4 className="text-base font-bold text-slate-900 font-display">Stone-Ground Desi Dusting</h4>
+              <p className="text-xs text-slate-600 leading-relaxed font-body">
+                Tumbled in natural spice powders ground from Guntur chillies, Tellicherry black pepper, and Bengali mustard. Nitrogen sealed with clean grabber insertion.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <BrandDivider variant="wave" color="#E7DECB" />
+
+      {/* ---------------- SECTION: MEET THE STUDENT FOUNDERS (WITH ROLL NUMBERS) ---------------- */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <div className="inline-flex items-center gap-1.5 bg-[#8B1E29] text-[#FBBF24] px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider">
+            <Users className="w-3.5 h-3.5" />
+            <span>The Student Founders & Designers</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-display">
+            Meet the Team Behind Chippas
+          </h2>
+          <p className="text-sm text-slate-600">
+            Four SRCC student entrepreneurs combining packaging innovation, culinary passion, and modern FMCG execution.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {STUDENT_FOUNDERS.map((founder) => (
+            <div
+              key={founder.rollNo}
+              className="bg-white rounded-2xl border-2 border-[#E7DECB] hover:border-[#8B1E29] p-5 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-4 group"
+            >
+              <div className="space-y-3">
+                {/* Roll number pill */}
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black uppercase tracking-wider bg-[#8B1E29] text-[#FBBF24] px-2.5 py-0.5 rounded-full">
+                    Roll No. {founder.rollNo}
+                  </span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-black text-slate-900 font-display group-hover:text-[#8B1E29] transition-colors">
+                    {founder.name}
+                  </h3>
+                  <div className="text-xs font-bold text-[#8B1E29] mt-0.5">
+                    {founder.role}
+                  </div>
+                  <div className="text-[11px] font-semibold text-slate-500 mt-0.5">
+                    {founder.pageFocus}
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-600 leading-relaxed font-body">
+                  {founder.bio}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                <span className="text-slate-500 font-medium">Favorite:</span>
+                <span className="font-bold text-slate-900 bg-[#FAF7F0] px-2 py-0.5 rounded border border-[#E7DECB]">
+                  {founder.favoriteFlavour}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <BrandDivider variant="dots" color="#8B1E29" />
+
+      {/* ---------------- SECTION: BRAND STORY FAQS ACCORDION ---------------- */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="text-center space-y-2">
+          <span className="text-xs font-black uppercase tracking-widest text-[#8B1E29]">
+            Got Questions?
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-display">
+            The Chippas Brand FAQ
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600">
+            Learn more about our university origins, potato farming ethics, and sustainability roadmap.
+          </p>
+        </div>
+
+        <Accordion
+          items={ABOUT_STORY_ACCORDIONS}
+          defaultOpenIds={['story-origin']}
+          allowMultiple={true}
+        />
       </section>
 
       {/* ---------------- CHAPTER 5: OUR PROMISE & SIGNATURE YELLOW CTA ---------------- */}

@@ -5,6 +5,12 @@ import { ChipasBagIllustration } from '../components/ChipasBagIllustration';
 import { ProductCard } from '../components/ProductCard';
 import { GrabberDemo } from '../components/GrabberDemo';
 import { BrandCommercialVideo } from '../components/BrandCommercialVideo';
+import { BestsellersCarousel } from '../components/BestsellersCarousel';
+import { LifestyleCarousel } from '../components/LifestyleCarousel';
+import { TestimonialsSection } from '../components/TestimonialsSection';
+import { SocialCommunityFeed } from '../components/SocialCommunityFeed';
+import { NewsletterSection } from '../components/NewsletterSection';
+import { BrandDivider } from '../components/BrandDivider';
 import { ArrowRight, ShoppingBag, CheckCircle2, Flame, Sparkles, Play, Film, Award, Maximize2, X, ChevronLeft, ChevronRight, FileText, ExternalLink, Eye } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -209,6 +215,17 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </section>
+
+      {/* ---------------- SECTION: BESTSELLERS CAROUSEL ---------------- */}
+      <BestsellersCarousel
+        title="Bestsellers & Fan Favourites"
+        subtitle="The crunch that started a revolution across campuses. Hand-cooked in sunflower oil with zero palm oil."
+        badge="Top Ranked on Campus"
+        onSelectProduct={onSelectProduct}
+        onQuickAdd={onQuickAdd}
+      />
+
+      <BrandDivider variant="wave" color="#EADFCB" />
 
       {/* ---------------- SECTION 3: DISCOVER OUR FLAVOURS ---------------- */}
       {/* Catalogue-lead where actual colourful packets do the talking */}
@@ -549,6 +566,24 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </section>
+
+      {/* ---------------- SECTION: LIFESTYLE MOMENTS CAROUSEL ---------------- */}
+      <LifestyleCarousel />
+
+      <BrandDivider variant="dots" color="#8B1E29" />
+
+      {/* ---------------- SECTION: TESTIMONIALS & REVIEWS ---------------- */}
+      <TestimonialsSection />
+
+      <BrandDivider variant="zigzag" color="#FBBF24" />
+
+      {/* ---------------- SECTION: SOCIAL & COMMUNITY FEED ---------------- */}
+      <SocialCommunityFeed />
+
+      <BrandDivider variant="wave" color="#EADFCB" />
+
+      {/* ---------------- SECTION: NEWSLETTER SUBSCRIPTION ---------------- */}
+      <NewsletterSection sourcePage="Home" />
 
       {/* ---------------- SECTION 7: FINAL CTA ---------------- */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 text-center">

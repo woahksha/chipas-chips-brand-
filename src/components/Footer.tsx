@@ -209,15 +209,40 @@ export const Footer: React.FC<FooterProps> = ({
 
         </div>
 
+        {/* Student Creator & Roll Numbers Credit Bar */}
+        <div className="py-6 border-b border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#FBBF24]" />
+            <span className="font-bold text-[#FBBF24] uppercase tracking-wider text-[11px]">
+              Student Creators & Section Leads:
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 text-xs">
+            <span className="bg-white/10 px-3 py-1 rounded-full text-amber-100">
+              Home: <strong className="text-white">25BA131</strong>
+            </span>
+            <span className="bg-white/10 px-3 py-1 rounded-full text-amber-100">
+              Our Products: <strong className="text-white">25BA136</strong>
+            </span>
+            <span className="bg-white/10 px-3 py-1 rounded-full text-amber-100">
+              About Us: <strong className="text-white">25BA108</strong>
+            </span>
+            <span className="bg-white/10 px-3 py-1 rounded-full text-amber-100">
+              Where to Buy: <strong className="text-white">25BA104</strong>
+            </span>
+          </div>
+        </div>
+
         {/* Bottom Copyright Strip */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-amber-200/60 gap-4">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-amber-200/60 gap-4">
           <div>
-            © 2026 CHIPAS. All rights reserved.
+            © 2026 CHIPAS. All rights reserved · Shri Ram College of Commerce (SRCC) Student FMCG Venture.
           </div>
           <div className="flex items-center gap-1">
             <span>Crafted with</span>
             <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 inline" />
-            <span>for snack lovers everywhere.</span>
+            <span>for authentic crunch lovers everywhere.</span>
           </div>
         </div>
 
