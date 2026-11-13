@@ -550,7 +550,7 @@ export const WhereToBuyPage: React.FC<WhereToBuyPageProps> = ({ onOpenContact, o
               </h2>
 
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-body">
-                Official retail promotional artwork, campus canteen posters, and snacking guides displayed across stores and college tuck shops. Authored and designed by roll number <strong className="text-[#8B1E29] font-black underline decoration-[#FBBF24] decoration-2">25BA104</strong>. Click any poster below to inspect the artwork in high resolution.
+                Official retail promotional artwork, campus canteen posters, and snacking guides displayed across stores and college tuck shops. Authored and designed by <strong className="text-slate-900 font-bold">Pradyumna</strong> (roll number <strong className="text-[#8B1E29] font-black underline decoration-[#FBBF24] decoration-2">25BA104</strong>). Click any poster below to inspect the artwork in high resolution.
               </p>
             </div>
 
@@ -563,7 +563,7 @@ export const WhereToBuyPage: React.FC<WhereToBuyPageProps> = ({ onOpenContact, o
                 Made by 25BA104
               </div>
               <div className="text-xs text-amber-100/80 font-semibold mt-1">
-                Roll No. 25BA104 · CHIPAS Retail Edition
+                Pradyumna · Roll No. 25BA104
               </div>
             </div>
           </div>
@@ -1067,7 +1067,7 @@ export const WhereToBuyPage: React.FC<WhereToBuyPageProps> = ({ onOpenContact, o
                   Partnership Request Received!
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto">
-                  Thank you! Our distribution lead (<strong>25BA104</strong>) will reach out to{' '}
+                  Thank you! Our distribution lead, <strong>Pradyumna (25BA104)</strong>, will reach out to{' '}
                   <strong className="text-[#8B1E29]">{partnerForm.contactEmail}</strong> within 24 hours for{' '}
                   <strong>{partnerForm.outletName}</strong> ({partnerForm.city}).
                 </p>

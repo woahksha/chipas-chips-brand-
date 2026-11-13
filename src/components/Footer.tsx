@@ -220,16 +220,16 @@ export const Footer: React.FC<FooterProps> = ({
 
           <div className="flex flex-wrap items-center gap-3 text-xs">
             <span className="bg-white/10 px-3 py-1 rounded-full text-amber-100">
-              Home: <strong className="text-white">25BA131</strong>
+              Home: <strong className="text-white">Samiksha · 25BA131</strong>
             </span>
             <span className="bg-white/10 px-3 py-1 rounded-full text-amber-100">
-              Our Products: <strong className="text-white">25BA136</strong>
+              Our Products: <strong className="text-white">Saurav · 25BA136</strong>
             </span>
             <span className="bg-white/10 px-3 py-1 rounded-full text-amber-100">
-              About Us: <strong className="text-white">25BA108</strong>
+              About Us: <strong className="text-white">Pratibha · 25BA108</strong>
             </span>
             <span className="bg-white/10 px-3 py-1 rounded-full text-amber-100">
-              Where to Buy: <strong className="text-white">25BA104</strong>
+              Where to Buy: <strong className="text-white">Pradyumna · 25BA104</strong>
             </span>
           </div>
         </div>

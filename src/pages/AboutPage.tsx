@@ -70,12 +70,20 @@ interface StudentFounder {
 
 const STUDENT_FOUNDERS: StudentFounder[] = [
   {
-    name: 'Saurav',
+    name: 'Samiksha',
     rollNo: '25BA131',
     role: 'Co-Founder & Brand Architect',
     pageFocus: 'Curator & Designer · Home Experience',
-    bio: 'Lead strategist behind the Chippas brand identity, clean-finger grabber origami patent, and high-impact campus campaigns.',
+    bio: 'Lead strategist behind the Chippas home experience, clean-finger grabber origami patent, and flagship campus launch pamphlets.',
     favoriteFlavour: 'Classic Salted'
+  },
+  {
+    name: 'Saurav',
+    rollNo: '25BA136',
+    role: 'Co-Founder & Product Lead',
+    pageFocus: 'Curator & Designer · Our Products',
+    bio: 'Food scientist & palate curator behind our authentic regional spice ratios, flavour spotlight pamphlets, and zero palm oil testing.',
+    favoriteFlavour: 'Sour Cream & Onion'
   },
   {
     name: 'Pratibha Biswal',
@@ -84,14 +92,6 @@ const STUDENT_FOUNDERS: StudentFounder[] = [
     pageFocus: 'Curator & Designer · About Us & Heritage',
     bio: 'Champion of Hindi typographic heritage and the "क्रंच ईमानदारी से" manifesto, connecting truck-art aesthetics to modern snacking.',
     favoriteFlavour: 'Bengal Kasundi Mustard'
-  },
-  {
-    name: 'Samiksha',
-    rollNo: '25BA136',
-    role: 'Co-Founder & Product Lead',
-    pageFocus: 'Curator & Designer · Product Formulations',
-    bio: 'Food scientist & palate curator behind our authentic regional spice ratios, zero palm oil testing, and nutritional transparency.',
-    favoriteFlavour: 'Sour Cream & Onion'
   },
   {
     name: 'Pradyumna',

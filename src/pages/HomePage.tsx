@@ -297,7 +297,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </h2>
 
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-body">
-                Explore the official brand literature, pack anatomy diagrams, spice index, and snacking field guides created for CHIPAS. Authored and designed by roll number <strong className="text-[#8B1E29] font-black underline decoration-[#FBBF24] decoration-2">25BA131</strong>. Click any pamphlet below to view in high resolution.
+                Explore the official brand literature, pack anatomy diagrams, spice index, and snacking field guides created for CHIPAS. Authored and designed by <strong className="text-slate-900 font-bold">Samiksha</strong> (roll number <strong className="text-[#8B1E29] font-black underline decoration-[#FBBF24] decoration-2">25BA131</strong>). Click any pamphlet below to view in high resolution.
               </p>
             </div>
 
@@ -310,7 +310,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 Made by 25BA131
               </div>
               <div className="text-xs text-amber-100/80 font-semibold mt-1">
-                Roll No. 25BA131 · CHIPAS Home Edition
+                Samiksha · Roll No. 25BA131
               </div>
             </div>
           </div>

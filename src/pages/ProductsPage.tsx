@@ -494,7 +494,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
               </h2>
 
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-body">
-                Official flavour spotlight brochures, ingredient highlights, and per-30g nutrition facts created for CHIPAS Our Products catalogue. Authored and designed by roll number <strong className="text-[#8B1E29] font-black underline decoration-[#FBBF24] decoration-2">25BA136</strong>. Click any pamphlet below to inspect the design in high resolution.
+                Official flavour spotlight brochures, ingredient highlights, and per-30g nutrition facts created for CHIPAS Our Products catalogue. Authored and designed by <strong className="text-slate-900 font-bold">Saurav</strong> (roll number <strong className="text-[#8B1E29] font-black underline decoration-[#FBBF24] decoration-2">25BA136</strong>). Click any pamphlet below to inspect the design in high resolution.
               </p>
             </div>
 
@@ -507,7 +507,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                 Made by 25BA136
               </div>
               <div className="text-xs text-amber-100/80 font-semibold mt-1">
-                Roll No. 25BA136 · CHIPAS Flavour Edition
+                Saurav · Roll No. 25BA136
               </div>
             </div>
           </div>
